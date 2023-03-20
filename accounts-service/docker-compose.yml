@@ -2,29 +2,65 @@ version : "3.8"
 
 services:
 
+  mongodatabase:
+    image: mongo:latest
+    container_name: "mongodatabase"
+    mem_limit: 700m
+    ports:
+      - "27017:27017"
+  configserver:
+    image: kaushal1998/accounts-config-server
+    container_name: "configserver"
+    mem_limit: 000m
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_PROFILES_ACTIVE: default
   accounts:
     image: kaushal1998/accounts-service
+    container_name: "accounts"
     mem_limit: 700m
     ports:
       - "8081:8081"
-    networks:
-      - kaushal1998-network
-   
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:9090/
+    links:
+      - mongodatabase
   loans:
     image: kaushal1998/loans-service
+    container_name: "loans"
     mem_limit: 700m
     ports:
       - "8082:8082"
-    networks:
-      - kaushal1998-network
-   
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:9090/
+    links:
+      - mongodatabase
   cards:
     image: kaushal1998/card-service
-    mem_limit: 7000m
+    container_name: "cards"
+    mem_limit: 700m
     ports:
       - "8083:8083"
-    networks:
-      - kaushal1998-network
- 
-networks:
-  kaushal1998-network:
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:9090/
+    links:
+      - mongodatabase

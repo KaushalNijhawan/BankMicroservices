@@ -18,17 +18,17 @@ public class GatewayServerApplication {
 	public RouteLocator getRoutes(RouteLocatorBuilder builder) {
 		return builder.routes().
 				route(p-> 
-				p.path("/knijhawan/accounts-service/**")
+				p.path("/eazybank/accounts-service/**")
 				.filters(f-> f.rewritePath("/knijhawan/accounts-service/(?<segment>.*)","/${segment}")
 						.addResponseHeader("X-Response-Time", new Date().toString()))
 				.uri("lb://ACCOUNTS-SERVICE"))
 				.route(p-> 
-				p.path("/knijhawan/loans-service/**")
+				p.path("/eazybank/loans-service/**")
 				.filters(f-> f.rewritePath("/knijhawan/loans-service/(?<segment>.*)","/${segment}")
 						.addResponseHeader("X-Response-Time", new Date().toString()))
 				.uri("lb://LOANS-SERVICE"))
 				.route(p-> 
-				p.path("/knijhawan/card-service/**")
+				p.path("/eazybank/card-service/**")
 				.filters(f-> f.rewritePath("/knijhawan/card-service/(?<segment>.*)","/${segment}")
 						.addResponseHeader("X-Response-Time", new Date().toString()))
 				.uri("lb://CARD-SERVICE")).build();
