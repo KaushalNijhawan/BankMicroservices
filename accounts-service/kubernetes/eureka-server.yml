@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eurekaserver-deployment
+  labels:
+    app: eurekaserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eurekaserver
+  template:
+    metadata:
+      labels:
+        app: eurekaserver
+    spec:
+      containers:
+      - name: configserver
+        image: kaushal1998/eureka-server
+        ports:
+        - containerPort: 8888
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: SPRING_PROFILES_ACTIVE
+        - name: SPRING_ZIPKIN_BASEURL
+          valueFrom:
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: SPRING_ZIPKIN_BASEURL
+        - name: SPRING_CONFIG_IMPORT 
+          valueFrom:
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: SPRING_CONFIG_IMPORT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eurekaserver-service
+spec:
+  selector:
+    app: eurekaserver
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+        
+        

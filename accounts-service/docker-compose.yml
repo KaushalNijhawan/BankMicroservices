@@ -1,0 +1,30 @@
+version : "3.8"
+
+services:
+
+  accounts:
+    image: kaushal1998/accounts-service
+    mem_limit: 700m
+    ports:
+      - "8081:8081"
+    networks:
+      - kaushal1998-network
+   
+  loans:
+    image: kaushal1998/loans-service
+    mem_limit: 700m
+    ports:
+      - "8082:8082"
+    networks:
+      - kaushal1998-network
+   
+  cards:
+    image: kaushal1998/card-service
+    mem_limit: 7000m
+    ports:
+      - "8083:8083"
+    networks:
+      - kaushal1998-network
+ 
+networks:
+  kaushal1998-network:

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kaushal1998-configmap
+data:
+  SPRING_ZIPKIN_BASEURL: http://zipkin-service:9411/api/v2/spans
+  SPRING_PROFILES_ACTIVE: prod
+  SPRING_CONFIG_IMPORT: configserver:http://configserver-service:9090/
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver-service:8888/eureka/

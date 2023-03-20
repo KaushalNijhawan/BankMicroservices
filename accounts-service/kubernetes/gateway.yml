@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-deployment
+  labels:
+    app: gatewayserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatewayserver
+  template:
+    metadata:
+      labels:
+        app: gatewayserver
+    spec:
+      containers:
+      - name: gatewayserver
+        image: kaushal1998/gateway-server
+        ports:
+        -  containerPort: 9999
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: SPRING_PROFILES_ACTIVE
+        - name: SPRING_ZIPKIN_BASEURL
+          valueFrom:
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: SPRING_ZIPKIN_BASEURL
+        - name: SPRING_CONFIG_IMPORT
+          valueFrom:
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: SPRING_CONFIG_IMPORT
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          valueFrom: 
+            configMapKeyRef:
+              name: kaushal1998-configmap
+              key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+spec:
+  selector:
+    app: gatewayserver
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 9999
+      targetPort: 9999  
+        
+    
