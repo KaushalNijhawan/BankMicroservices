@@ -4,23 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.cloud.datastore.FullEntity;
 import com.spring.accounts.accountsservice.feignclients.CardClient;
 import com.spring.accounts.accountsservice.feignclients.LoansClient;
 import com.spring.accounts.accountsservice.model.AccountModel;
-import com.spring.accounts.accountsservice.model.Card;
-import com.spring.accounts.accountsservice.model.Customer;
-import com.spring.accounts.accountsservice.model.CustomerDetails;
-import com.spring.accounts.accountsservice.model.Loans;
 import com.spring.accounts.accountsservice.repository.AccountRepo;
 import com.spring.accounts.accountsservice.repository.CustomerRepo;
+import com.spring.accounts.accountsservice.model.*;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
-import lombok.AllArgsConstructor;
 
 @Service
 public class AccountService {
@@ -46,8 +42,8 @@ public class AccountService {
 	public String addAccount(AccountModel account) {
 		if(null != account) {
 			account.setCreateDt(new Date().toString());
+//			accountRepo
 			accountRepo.save(account);
-			
 			return "Saved!";
 		}
 		

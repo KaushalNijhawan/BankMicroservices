@@ -1,6 +1,9 @@
 package com.spring.card.cardservice.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import org.springframework.data.annotation.Id;
+
+import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +16,11 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "card")
+@Entity(name = "card")
 public class Card {
+	
+	@Id
+	private Long id;
 	
 	private String cardId;
 

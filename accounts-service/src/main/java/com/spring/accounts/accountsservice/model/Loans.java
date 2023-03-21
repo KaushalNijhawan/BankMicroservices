@@ -1,7 +1,5 @@
 package com.spring.accounts.accountsservice.model;
 
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

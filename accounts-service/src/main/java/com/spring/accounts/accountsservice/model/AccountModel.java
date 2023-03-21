@@ -1,6 +1,9 @@
 package com.spring.accounts.accountsservice.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import org.springframework.data.annotation.Id;
+
+import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +16,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Document(collection = "account")
+//@Document(collection  = "account")
+@Entity(name="account")
 public class AccountModel {
-
 	private String customerId;
+	@Id
 	private long accountNumber;
 	private String accountType;
 	private String branchAddress;

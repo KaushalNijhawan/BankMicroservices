@@ -4,22 +4,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import com.google.cloud.spring.data.datastore.repository.config.EnableDatastoreRepositories;
 
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @SpringBootApplication
 @RefreshScope
-@EnableMongoRepositories
+@EnableDatastoreRepositories
 public class CardServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CardServiceApplication.class, args);
 	}
 
-//	@Bean
-//	public TimedAspect timeAspect(MeterRegistry registry) {
-//		return new TimedAspect(registry);
-//	}
 }

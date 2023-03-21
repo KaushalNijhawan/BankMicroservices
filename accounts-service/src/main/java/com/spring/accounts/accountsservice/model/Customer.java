@@ -1,6 +1,10 @@
 package com.spring.accounts.accountsservice.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+
+
+import org.springframework.data.annotation.Id;
+
+import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +17,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Document(collection="customer")
+@Entity(name="customer")
 public class Customer {
 
-	
+	@Id
+	private Long id;
 	private String customerId;
 	private String name;
 	private String email;
