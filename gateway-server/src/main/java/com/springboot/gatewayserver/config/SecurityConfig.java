@@ -13,7 +13,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
 		http.authorizeExchange(exchange -> exchange.pathMatchers("/eazybank/accounts-service/**").authenticated()
-				.pathMatchers("/eazybank/card-service").authenticated()
+				.pathMatchers("/eazybank/card-service/**").authenticated()
 				.pathMatchers("/eazybank/loans-service/**").permitAll())
 		.oauth2ResourceServer().jwt();
 		http.csrf().disable();
